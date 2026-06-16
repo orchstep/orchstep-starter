@@ -1,0 +1,25 @@
+# OrchStep starter project.
+#
+#   orchstep run               run the pipeline (build + test)
+#   orchstep run deploy        run a single task
+#   orchstep list-tasks        list every callable task
+#   orchstep run --dry-run     preview without executing
+#   orchstep menu              interactive task picker
+#
+# The build / test / deploy tasks are auto-discovered from the tasks/ directory.
+# These top-level steps are the default "main" pipeline that ties them together.
+# Docs: https://orchstep.dev/learn/task-files
+name: starter
+desc: A starter OrchStep project - build, test, and deploy
+
+# Definition variables. Override any of them at runtime with --var key=value.
+defaults:
+  app_name: "my-app"
+  version: "0.1.0"
+  environment: "staging"
+
+steps:
+  - name: build
+    task: build
+  - name: test
+    task: test

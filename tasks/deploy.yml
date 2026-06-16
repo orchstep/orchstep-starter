@@ -1,0 +1,9 @@
+# Deploy to an environment. Override the target and version at the call site:
+#   orchstep run deploy --var environment=production --var version=1.2.3
+desc: Deploy to an environment
+steps:
+  - name: ship
+    func: shell
+    # Replace with your real deploy command:
+    #   kubectl apply -f k8s/   |   terraform apply   |   aws deploy ...
+    do: echo "deploying {{ vars.app_name }} v{{ vars.version }} to {{ vars.environment }}"

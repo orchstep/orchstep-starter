@@ -1,0 +1,6 @@
+# OrchStep runtime artifacts (context DB, scratch state)
+.orchstep/
+
+# Build output - adjust to your stack
+/bin/
+/dist/

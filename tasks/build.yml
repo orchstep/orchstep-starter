@@ -1,0 +1,10 @@
+desc: Compile the application
+steps:
+  - name: compile
+    func: shell
+    # Replace with your real build command:
+    #   go build -o bin/app ./cmd/...   |   npm run build   |   docker build -t app .
+    do: echo "building {{ vars.app_name }} v{{ vars.version }}"
+  - name: report
+    func: shell
+    do: echo "artifact {{ vars.app_name }}-{{ vars.version }} is ready"

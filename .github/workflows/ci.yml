@@ -1,0 +1,46 @@
+# CI for an OrchStep project.
+# orchstep/run-orchstep installs the CLI and runs the workflow in one step.
+# Docs: https://orchstep.dev/getting-started/ci
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch: {}   # enables the manual "Deploy" job below
+
+jobs:
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: orchstep/run-orchstep@v1
+        with:
+          command: lint
+          workflow: orchstep.yml
+
+  ci:
+    name: Build & Test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: orchstep/run-orchstep@v1
+        with:
+          workflow: orchstep.yml   # no task = the main pipeline (build + test)
+
+  # Manual deploy: Actions tab -> CI -> Run workflow.
+  deploy:
+    name: Deploy
+    if: github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: orchstep/run-orchstep@v1
+        with:
+          workflow: orchstep.yml
+          task: deploy
+          vars: |
+            environment=production
+            version=${{ github.ref_name }}

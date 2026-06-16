@@ -1,0 +1,13 @@
+desc: Run the test suite
+steps:
+  - name: unit
+    func: shell
+    # Replace with your real test command:
+    #   go test ./...   |   npm test   |   pytest
+    do: echo "running tests for {{ vars.app_name }}"
+  - name: gate
+    func: assert
+    args:
+      # A simple readiness gate - assertions fail the run if they are not met.
+      condition: '{{ ne vars.version "" }}'
+      message: "version must be set before shipping"
