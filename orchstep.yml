@@ -23,3 +23,20 @@ steps:
     task: build
   - name: test
     task: test
+
+# Saved run aliases: name a long invocation, then run it by name.
+#   orchstep run prod_deploy        run the alias
+#   orchstep run prod_deploy --var version=1.2.0   override a value
+#   orchstep alias                  list every alias
+# Docs: https://orchstep.dev/learn/run-aliases
+aliases:
+  # Typed form (recommended): every run option as a field.
+  prod_deploy:
+    desc: Deploy to production
+    task: deploy
+    vars:
+      environment: production
+      version: "1.0.0"
+
+  # String shorthand: a raw command, paste-from-history friendly.
+  staging_deploy: run deploy --var environment=staging
